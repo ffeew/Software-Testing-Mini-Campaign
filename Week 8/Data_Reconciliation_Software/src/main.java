@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +26,7 @@ public class main {
                 String[] row = line.split(delimiter);
                 CSV1.add(Arrays.asList(row));
             }
+            br.close();
 
             BufferedReader br2 = new BufferedReader(new FileReader("sample_file_3.csv"));
             while ((line = br2.readLine()) != null)
@@ -35,20 +34,23 @@ public class main {
                 String[] row = line.split(delimiter);
                 CSV2.add(Arrays.asList(row));
             }
+            br2.close();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
 
+        // check each row in CSV1 against all the rows in CSV2
         for (int i = 0; i<CSV1.size(); i++){
 
             List<String> CSV1Row = CSV1.get(i);
 
-
+            // iterate through all the rows in CSV2
             for (int j = 0; j < CSV2.size(); j++) {
                 int discrepancy = 0;
                 List<String> CSV2Row = CSV2.get(j);
+
                 // check of discrepancies within the row
                 for (int k = 0; k <CSV2Row.size() ; k++) {
                     String CSV1Cell = CSV1Row.get(k);
@@ -57,6 +59,8 @@ public class main {
                         discrepancy++;
                     }
                 }
+                // if there is only 1 mismatch for the whole row
+                // record down the rows as mismatches
                 if (discrepancy==1){
                     exceptions.add(CSV1Row);
                     exceptions.add(CSV2Row);
@@ -64,6 +68,30 @@ public class main {
             }
         }
 
-        System.out.println(exceptions);
+        try{
+            BufferedWriter bw = new BufferedWriter(new FileWriter("Exceptions.csv"));
+            for (int i = 0; i < exceptions.size(); i++) {
+                List<String> row = exceptions.get(i);
+
+                StringBuilder str = new StringBuilder("");
+
+                // Traversing the ArrayList
+                for (String cell : row) {
+
+                    // Each element in ArrayList is appended
+                    // followed by comma
+                    str.append(cell).append(",");
+                }
+                line = str.toString();
+                System.out.println(line);
+                bw.write(line);
+                bw.write("\n");
+            }
+            bw.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 }
