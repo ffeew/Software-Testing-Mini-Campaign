@@ -11,17 +11,41 @@ public class main {
         List<List<String>> CSV1 = new ArrayList<>();
         List<List<String>> CSV2 = new ArrayList<>();
         List<List<String>> exceptions = new ArrayList<>();
-        try
-        {
-            System.out.println("\nPlease ensure that your CSV files are in the same directory as this Data Reconciliation Software \n");
-            System.out.println("The CSV files should be under the folder: 'Data Reconciliation Software' \n");
+        String file1;
+        String file2;
+
+
+        System.out.println("\nPlease ensure that your CSV files are in the same directory as this Data Reconciliation Software \n");
+        System.out.println("The CSV files should be under the folder: 'Data Reconciliation Software' \n");
+
+        // simple data validation to ensure that the file entered has a CSV extension
+        while(true){
             System.out.println("Please enter the filename of your first CSV file: ");
             Scanner sc = new Scanner(System.in);
-            String file1 = sc.nextLine();
+            file1 = sc.nextLine();
 
             System.out.println("Please enter the filename of your second CSV file: ");
-            String file2 = sc.nextLine();
+            file2 = sc.nextLine();
 
+            try {
+                String file1_ext = file1.split("\\.")[1];
+                String file2_ext = file2.split("\\.")[1];
+
+                if (file1_ext.equals("csv") && file2_ext.equals("csv")){
+                    break;
+                } else{
+                    System.out.println("\nPlease enter a CSV file, other file formats are not supported\n");
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                System.out.println("Please enter the filename with its extension");
+            }
+        }
+
+
+
+        try
+        {
             BufferedReader br = new BufferedReader(new FileReader(file1));
             while ((line = br.readLine()) != null)
             {
@@ -40,7 +64,7 @@ public class main {
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Program is unable to read the files");;
             return;
         }
 
