@@ -13,7 +13,7 @@ public class main {
         List<List<String>> exceptions = new ArrayList<>();
         try
         {
-            System.out.println("Please ensure that your CSV files are in the same directory as this Data Reconciliation Software \n");
+            System.out.println("\nPlease ensure that your CSV files are in the same directory as this Data Reconciliation Software \n");
             System.out.println("The CSV files should be under the folder: 'Data Reconciliation Software' \n");
             System.out.println("Please enter the filename of your first CSV file: ");
             Scanner sc = new Scanner(System.in);
@@ -41,6 +41,7 @@ public class main {
         catch (IOException e)
         {
             e.printStackTrace();
+            return;
         }
 
         // check each row in CSV1 against all the rows in CSV2
