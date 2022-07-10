@@ -38,7 +38,7 @@ public class main {
                 }
             }
             catch(IndexOutOfBoundsException e){
-                System.out.println("Please enter the filename with its extension");
+                System.out.println("Please enter the filename with its extension, example: test.csv");
             }
         }
 
