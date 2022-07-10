@@ -13,14 +13,16 @@ public class main {
         List<List<String>> exceptions = new ArrayList<>();
         try
         {
-//            System.out.println("Please enter the filename of your file that contains all the records");
-//            Scanner sc = new Scanner(System.in);
-//            String mainFile = sc.nextLine();
-//
-//            System.out.println("Please enter the filename of your file that contains the unique combination");
-//            String uniqueFile = sc.nextLine();
+            System.out.println("Please ensure that your CSV files are in the same directory as this Data Reconciliation Software \n");
+            System.out.println("The CSV files should be under the folder: 'Data Reconciliation Software' \n");
+            System.out.println("Please enter the filename of your first CSV file: ");
+            Scanner sc = new Scanner(System.in);
+            String file1 = sc.nextLine();
 
-            BufferedReader br = new BufferedReader(new FileReader("sample_file_1.csv"));
+            System.out.println("Please enter the filename of your second CSV file: ");
+            String file2 = sc.nextLine();
+
+            BufferedReader br = new BufferedReader(new FileReader(file1));
             while ((line = br.readLine()) != null)
             {
                 String[] row = line.split(delimiter);
@@ -28,7 +30,7 @@ public class main {
             }
             br.close();
 
-            BufferedReader br2 = new BufferedReader(new FileReader("sample_file_3.csv"));
+            BufferedReader br2 = new BufferedReader(new FileReader(file2));
             while ((line = br2.readLine()) != null)
             {
                 String[] row = line.split(delimiter);
