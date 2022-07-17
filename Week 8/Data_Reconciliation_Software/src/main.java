@@ -14,7 +14,7 @@ public class main {
         String file1;
         String file2;
         List<String> unique_combination = new ArrayList<>();
-
+        String[] result;
 
         System.out.println("\nPlease ensure that your CSV files are in the same directory as this Data Reconciliation Software \n");
         System.out.println("The CSV files should be under the folder: 'Data Reconciliation Software' \n");
@@ -30,13 +30,12 @@ public class main {
             System.out.println("Example: sample_file_2.csv");
             file2 = sc.nextLine();
 
-            System.out.println("Please enter the column headers (case-sensitive) to be referenced: ");
-            System.out.println("The program expects the headers to be in this format: \"Header1\", \"Header2\", .....");
-            System.out.println("Example: \"ID\", \"Account\", \"Name\"");
-            String[] result = sc.nextLine().split(",");
-            for (String header : result){
-                unique_combination.add(header.trim());
-            }
+            System.out.println("Please enter the column numbers of the first file to be referenced (first column is 0): ");
+            System.out.println("The program will extract the column headers and compare it to the correct column in the second file");
+            System.out.println("The program expects the numbers to be seperated by commas");
+            System.out.println("Example: 0, 3, 4");
+            result = sc.nextLine().split(",");
+
 
             // close scanner after the file names are obtained
             sc.close();
@@ -84,6 +83,10 @@ public class main {
         // Check if both files contains the headers listed in the unique combination
         List<String> CSV1Row = CSV1.get(0);
         List<String> CSV2Row = CSV2.get(0);
+        for (String col : result){
+            unique_combination.add(CSV1Row.get(Integer. parseInt(col)));
+        }
+
         if (!CSV1Row.containsAll(unique_combination)){
             System.out.println("The first CSV file does not contain the necessary headers as specified in your unique combination");
             return;
