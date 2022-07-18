@@ -95,6 +95,11 @@ public class main {
             return;
         }
 
+        if (!CSV1Row.containsAll(CSV2Row) || !CSV2Row.containsAll(CSV1Row)){
+            System.out.println("The 2 CSV files do not contain the same headers");
+            return;
+        }
+
         // get the corresponding column number in each CSV file for the values in unique_combination
         ArrayList<Integer> indexes1 = new ArrayList<>();
         for (String header : unique_combination) {
