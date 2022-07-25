@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class main {
+public class DataRecon {
     public static void main(String[] args) {
         String delimiter = ",";
         List<List<String>> CSV1 = new ArrayList<>();
@@ -82,7 +82,7 @@ public class main {
         List<Integer> indexes2 = getIndicesofUniqueCombination(CSV2, unique_combination);
         List<Integer> headerMap = generate_header_map(CSV1, CSV2);
 
-        exceptions = generate_exceptions(CSV1, CSV2, indexes1, indexes2, headerMap, unique_combination);
+        exceptions = generate_exceptions(CSV1, CSV2, indexes1, indexes2, headerMap);
 
         try{
             writeCSVToFile(exceptions);
@@ -161,7 +161,7 @@ public class main {
         return headerMap;
     }
 
-    public static List<List<String>> generate_exceptions(List<List<String>> csv1, List<List<String>> csv2, List<Integer> indexes1, List<Integer> indexes2, List<Integer> headerMap, List<String> unique_combination){
+    public static List<List<String>> generate_exceptions(List<List<String>> csv1, List<List<String>> csv2, List<Integer> indexes1, List<Integer> indexes2, List<Integer> headerMap){
         List<List<String>> exceptions = new ArrayList<>();
         for (int i = 0; i<csv1.size(); i++){
 
@@ -195,7 +195,11 @@ public class main {
                     String CSV2Cell = CSV2Row.get(headerMap.get(k));
                     if (!CSV1Cell.equals(CSV2Cell)){
                         exceptions.add(CSV1Row);
-                        exceptions.add(CSV2Row);
+                        List<String> transformed_csv2_row = new ArrayList<>();
+                        for (int l = 0; l < CSV2Row.size(); l++) {
+                            transformed_csv2_row.add(CSV2Row.get(headerMap.get(l)));
+                        }
+                        exceptions.add(transformed_csv2_row);
                         break;
                     }
                 }

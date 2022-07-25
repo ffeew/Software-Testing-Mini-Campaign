@@ -25,7 +25,7 @@ At the end of comparing all the rows, the software will generate a new CSV file 
 Clone the git repository.
 
 ### Method 1: Using IntelliJ
-1. Open the Data Reconciliation Software project using IntelliJ, add a configuration, specifiying the main class and specify the working directory of the program, where all your CSV files are stored.
+1. Open the Data Reconciliation Software project using IntelliJ, add a configuration, specifiying the DataRecon class and specify the working directory of the program, where all your CSV files are stored.
 
 2. Click on run or `shift + F10`.
 
@@ -40,17 +40,17 @@ Clone the git repository.
 ### Method 2: Using the Terminal
 1. Open up the terminal and CD into the Data Reconciliation Software folder.
 
-2. From the Data Reconciliation Software folder, cd into src and make sure that main.java is present in the directory.
+2. From the Data Reconciliation Software folder, cd into src and make sure that DataRecon.java is present in the directory.
 
 3. Next, compile the java code by typing:
 ```
-javac main.java
+javac DataRecon.java
 ```
 
 4. After compiling the code, to run the program, type:
 ```
-java main
+java DataRecon
 ```
-5. The program will instruct you to enter the file names, please ensure that the CSV files are located in the same directory as your main.java file if you are running the program through the terminal.
+5. The program will instruct you to enter the file names, please ensure that the CSV files are located in the same directory as your DataRecon.java file if you are running the program through the terminal.
 
 6. Enter the column numbers, seperated by commas if >1 column number, of the first file that you wish to compare to the second file. They will be used as the identifier of the row for the comparison. 2 rows are considered the same if the data in the columns specified are the same, thus they will be expected to have the same data throughout the row.
