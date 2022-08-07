@@ -10,29 +10,48 @@ public class DataRecon {
         List<List<String>> CSV1 = new ArrayList<>();
         List<List<String>> CSV2 = new ArrayList<>();
         List<List<String>> exceptions = new ArrayList<>();
-        String file1;
-        String file2;
+        String file1 = "";
+        String file2 = "";
         List<String> unique_combination = new ArrayList<>();
-        String[] col_numbers;
+        String[] col_numbers = new String[1];
 
         System.out.println("\nPlease ensure that your CSV files are in the same directory as this Data Reconciliation Software \n");
         System.out.println("The CSV files should be under the folder: 'Data Reconciliation Software' \n");
 
-        while(true){
+        int tries = 0;
+        while(tries<=3){
             System.out.println("Please enter the filename of your first CSV file: ");
             System.out.println("Example: sample_file_1.csv\n");
             Scanner sc = new Scanner(System.in);
             file1 = sc.nextLine();
-
+            if (file1=="" || file1==null){
+                System.out.println("Please enter a valid filename.\n");
+                tries++;
+                sc.close();
+                continue;
+            }
+            
             System.out.println("\nPlease enter the filename of your second CSV file: ");
             System.out.println("Example: sample_file_2.csv\n");
             file2 = sc.nextLine();
+            if (file2=="" || file2==null){
+                System.out.println("Please enter a valid filename.\n");
+                tries++;
+                sc.close();
+                continue;
+            }
 
             System.out.println("\nPlease enter the column numbers of the first file to be referenced (first column is 0): ");
             System.out.println("The program will extract the column headers and compare it to the correct column in the second file");
             System.out.println("The program expects the numbers to be seperated by commas");
             System.out.println("Example: 0, 3, 4\n");
             col_numbers = sc.nextLine().split(",");
+            if (col_numbers.length==0){
+                System.out.println("Please enter a column number.\n");
+                tries++;
+                sc.close();
+                continue;
+            }
 
 
             // close scanner after the file names are obtained
@@ -40,9 +59,6 @@ public class DataRecon {
 
             // check if the files have .csv extension
             try {
-                // String file1_ext = file1.split("\\.")[1];
-                // String file2_ext = file2.split("\\.")[1];
-
                 if (isCSV(file1) && isCSV(file2)){
                     break;
                 } else{
@@ -52,6 +68,12 @@ public class DataRecon {
             catch(IndexOutOfBoundsException e){
                 System.out.println("Please enter the filename with its extension, example: test.csv");
             }
+            tries++;
+        }
+
+        if (tries>3){
+            System.out.println("\nNumber of tries exceeded. Program now exiting.\n");
+            return;
         }
 
         // parse the files into 2d arrays
@@ -88,8 +110,9 @@ public class DataRecon {
             writeCSVToFile(exceptions);
         }
         catch(IOException e){
-            e.printStackTrace();
+            System.out.println("Program is unable to write the exceptions to Exceptions.csv, please ensure that the file is not opened in any other program.");;
         }
+        return;
 
     }
     
