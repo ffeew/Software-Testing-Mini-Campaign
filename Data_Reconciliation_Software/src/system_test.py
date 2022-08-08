@@ -25,6 +25,7 @@ class TestDataReconProgram(unittest.TestCase):
         )
         data_recon_prog.wait()
         input_file.close()
+        self.assertEqual(data_recon_prog.returncode, 0)
 
         # open up the exceptions CSV after it has been generated
         f1 = open("Exceptions.csv", "r")
